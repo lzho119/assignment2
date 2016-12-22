@@ -75,3 +75,37 @@ function showError(error)
       break;
     }
   }
+
+function generatePos()
+{
+	lat=current.getPosition().lat();
+	lon=current.getPosition().lng();
+	latlon=new google.maps.LatLng(lat, lon)
+	var length = RandomNumBoth(60, 150);
+	var angle = RandomNumBoth(10, 175);
+	var new_loc = google.maps.geometry.spherical.computeOffset(latlon, length, angle);
+	if (typeof(arrival) == "undefined"){
+		arrival=new google.maps.Marker({position:new_loc, map:map, title:"A candidate goal!"});
+	}else{
+		arrival=new google.maps.Marker({position:new_loc, map:map, title:"A candidate goal!"});
+	}
+	distance = google.maps.geometry.spherical.computeDistanceBetween(current.getPosition(), arrival.getPosition());	
+	document.getElementById('length').value = distance; 	
+}
+
+// show the init distance between the begin and the end.
+function showDistance() 
+{
+  	document.getElementById('length').value = distance;
+}
+
+function checkDistance()
+{
+	if (!flag){
+  		distance = google.maps.geometry.spherical.computeDistanceBetween(current.getPosition(), arrival);	
+  		console.log(distance);
+  		if (distance < 10){
+  			finishRun();
+  		}
+  	}
+}
