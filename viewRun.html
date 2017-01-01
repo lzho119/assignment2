@@ -25,7 +25,15 @@
 
           <main class="mdl-layout__content">
             <!--   Main page content here:   -->  
-                
+            <p id="demo">show location:</p>
+            <div id="mapholder"></div>
+            <div id="floating-panel">
+              traveled: <input type="text" readonly id="traveled"> meters </br>
+              time: <input type="text" readonly id="time">s</br>
+              average: <input type="text" readonly id="average">
+            </div> 
+            <button type="button" onclick="deleteRun()">delete</button>
+            <button type="button" onclick="restart()">restart</button>   
           </main>
           <div id="toast" class="mdl-js-snackbar mdl-snackbar">
             <div class="mdl-snackbar__text"></div>
@@ -37,5 +45,6 @@
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
         <script src="js/shared.js"></script>
         <script src="js/viewRunPage.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6_sIIm0CziNE9MCMvYZ9d0Y7oF7Ejr58&libraries=geometry&callback=initViewRun"async defer></script>
     </body>
 </html>
