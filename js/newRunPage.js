@@ -213,3 +213,42 @@ function timedCount()
  		}
  	}
  }
+
+ // retry run:
+function viewretryRun(itemIndex){
+	var run = JSON.parse(localStorage.getItem(APP_PREFIX + "-RunList"))[itemIndex];
+	var startLat = run.start_lat;
+	var startLon = run.start_lon;
+	var arrivalLat = run.arrival_lat;
+	var arrivalLon = run.arrival_lon;
+	var beginTime = run.beginTime;
+	var endTime = run.endTime;
+	retryStart=new google.maps.LatLng(startLat, startLon)
+	var mapholder=document.getElementById('mapholder')
+	mapholder.style.height='250px';
+	mapholder.style.width='500px';
+	var myOptions={
+	center:retryStart,zoom:14,
+	mapTypeId:google.maps.MapTypeId.ROADMAP,
+	mapTypeControl:false,
+	navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+	};
+	arrival=new google.maps.LatLng(arrivalLat, arrivalLon)
+	map=new google.maps.Map(document.getElementById("mapholder"),myOptions);
+	viewStart=new google.maps.Marker({position:retryStart,map:map,title:"Your start!"});
+	viewArrival = new google.maps.Marker({position:arrival,map:map,title:"Your arrival!"});
+}
+
+function checkStart(){
+  
+  	distance = google.maps.geometry.spherical.computeDistanceBetween(current.getPosition(), retryStart);	
+  	if (distance >= 10){
+  		alert("please get close to the start.");
+  	}else{
+  		beginTime = new Date().getTime();
+		setInterval("getLocation()", 5*unit);
+		setInterval("timedCount()", unit);
+		setInterval("checkDistance()", 2*unit);
+		setInterval("showTraveled()", 2*unit);
+  	}
+}
